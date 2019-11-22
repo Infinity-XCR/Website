@@ -1,7 +1,6 @@
 # Qui a fait le projet:
-
-
-
+Moi-même ( The-Guardians ou Cyber).
+je suis connu sur ces deux noms.
 
 
 # Qu'est-ce que c'est?
