@@ -10,4 +10,7 @@ et qui m'a été inspiré par le développeur de SpaceConflict.
 # As-tu de l'aide pour le projet?
 oui mais c'est temps-ci rarement.
  Je me dit que cela va venir avec le temps.
- 
+
+# Quand as tu eu l'idée de faire ce projet?
+il y a 2 ans  je pense.
+
