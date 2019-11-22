@@ -15,3 +15,5 @@ oui mais c'est temps-ci rarement.
 # Quand as tu eu l'idée de faire ce projet?
 il y a 2 ans  je pense.
 
+# fichier à finir
+Date de dernière mises à jours: 21-11-2019.
