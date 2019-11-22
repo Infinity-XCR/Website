@@ -1,15 +1,37 @@
+<?php
+require_once('member/config.php');
+?>
+<?php
+
+if(isset($_SESSION['username'])) {
+
+   $_SESSION['msg'] = "You must log in to view this page";
+   header("location: ");
+}
+if (isset($_GET['logout'])){
+
+   session_destroy();
+   unset($_SESSION['username']);
+   header("location: login.php");
+}
+?>
+<?php $css=rand(100000000000,999999999999); ?>
 <!DOCTYPE html_entity_decode>
 <html>
 <head>
-<title>Nexus Project</title>
-<img src="logo.png">
-<link rel="stylesheet" type="text/css" href="style.css">
+  <title>Nexus Project</title>
+  <link rel="stylesheet" type="text/css" href="style.css?__cv=<?php echo $css; ?>">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 <body>
+<div class="log-button">
+<a href="member/login.php">Login Here</a>
+</div>
+<div class="reg-button">
+<a href="member/registration.php">Create Account</a>
+</div>
 <style>
-legend,label,footer{
-    color: red;
-}
 .footer {
   position: fixed;
   left: 0;
@@ -17,31 +39,16 @@ legend,label,footer{
   width: 100%;
   height:5%;
   background-color: transparent;
- text-align: center;}
+ text-align: center;
+ color:red;
+ }
+p,h2{
+color:red;
+}
 </style>
-<strong><legend>The Real Battle Will Begin Soon</legend></strong><br>
-<form action=""method="post">
-<label>Username:<label><br>
-<input type="text"placeholder="Username"required class="form-control"><br>
-Password:<label><br>
-<input type="password"placeholder="Password" class="form-control"><br>
-Repeat-Password:<label><br>
-<input type="password"placeholder="Confirm Again" class="form-control"><br>
-Email:<label><br>
-<input type="text"placeholder="12345@hotmail.com" class="form-control"><br><br>
-<input type="submit"class="button"value="Create Account Here">
-</form>
-<form action="" method="post" class="form-1">
-          <strong><legend>Enter Your Infos Here.</legend></strong>
-			       <label>Username:</label><br>
-             <input type="text" name="username" class="form-control" required><br>  
-             <label>Password:</label><br>
-             <input type="password" name="password" class="form-control" required><br>
-             <input type="submit" class="button2" value="Login Here">
-</form>
 <div class="footer">
 <footer>
-Thank you The-Guardians we love you :)
+<b>Designer: SNIZER | Coder: The-Guardians</b>
 </footer>
 </div>
 </body>

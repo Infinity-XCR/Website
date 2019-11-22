@@ -1,31 +1,23 @@
 body{
-    background: linear-gradient(rgba(0, 0, 0, 0.5) ,rgba(0, 0, 50, 0.5)) ,url(image1.jpg);
+    background: linear-gradient(rgba(0, 0, 0, 0.5) ,rgba(0, 0, 50, 0.5)) 
+    ,url(picture/background/newbg1);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     overflow: hidden;
 }
-.button,.button2 {
-    width: 10%;
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: 5px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
+
   .button:hover {
-    background-color: #45a049;
+  background:linear-gradient(to bottom, #ce0100 5%, #fe1a00 100%);
+	background-color:#ce0100;
 }
 
 .form-control{
     background-color: transparent !important;
 }
 
-a{
-    color: #fff !important;
+a {
+    color: rgb #fff !important;
     margin-top: -200px !important;
 }
 
@@ -35,3 +27,45 @@ left:1600px;
 top: -300px;
 padding: 30px;
 }
+td {
+ text-align: right;
+}
+.log-button {
+    position: absolute;
+    bottom:200;
+    left: 500;
+    box-shadow:inset 0px 1px 0px 0px #f29c93;
+	background:linear-gradient(to bottom, #fe1a00 5%, #ce0100 100%);
+	background-color:#fe1a00;
+	border-radius:6px;
+	border:1px solid #d83526;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:10px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #b23e35;
+  }
+  .reg-button {
+    left: 500;
+    bottom: 200;
+    position: absolute;
+    left: 1100;
+    box-shadow:inset 0px 1px 0px 0px #f29c93;
+	background:linear-gradient(to bottom, #fe1a00 5%, #ce0100 100%);
+	background-color:#fe1a00;
+	border-radius:6px;
+	border:1px solid #d83526;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:10px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #b23e35;
+  }
