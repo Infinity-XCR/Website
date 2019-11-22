@@ -6,6 +6,7 @@ je suis connu sur ces deux noms.
 # Qu'est-ce que c'est?
 Un projet passe-temps qui veux devenir plus authentique,
 et qui m'a été inspiré par le développeur de SpaceConflict.
+un jeu 2d - 3D  spatial ou tu peux combattre , farmez tes resource pour gagnez ton equipement , faire des multivers pour gagner des récompenses.
 
 # As-tu de l'aide pour le projet?
 oui mais c'est temps-ci rarement.
