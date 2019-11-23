@@ -19,7 +19,7 @@ if (isset($_GET['logout'])){
 <!DOCTYPE html_entity_decode>
 <html>
 <head>
-  <title>Nexus Project</title>
+  <title>Project N.E.X.U.S</title>
   <link rel="stylesheet" type="text/css" href="style.css?__cv=<?php echo $css; ?>">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -48,7 +48,7 @@ color:red;
 </style>
 <div class="footer">
 <footer>
-<b>Designer: SNIZER | Coder: The-Guardians</b>
+<b>Designer: SNIZER | Coder: The-Guardians & Infinity</b>
 </footer>
 </div>
 </body>
