@@ -9,7 +9,7 @@
 </head>
 <body>
 <style>
-  legend,label,footer{
+  legend,label,footer {
       color: red;
 }
 .footer {
