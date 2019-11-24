@@ -11,7 +11,7 @@
 
         <div class="header">
 
-        <strong><p>Enter in your Account</p></strong>
+        <strong><p>Enter your account</p></strong>
 
     </div>
 
@@ -22,19 +22,19 @@
     
     <div>
 
-        <label for="username">Username : </label>
+        <label for="username"> Nickname: </label>
         <input type="text" name="username" required>
 
     </div>
 
     <div>
 
-        <label for ="password">Password : </label>
+        <label for ="password"> Password: </label>
         <input type="password" name="password_1" required>
 
     </div>
 
-    <button type="submit" name="login_user"> Log In </button>
+    <button type="submit" name="login_user"> Login </button>
 
     <p>Not a user?<a href="registration.php"><b>Register Here</b></a></p>
 <style>
@@ -56,6 +56,6 @@ footer {
 </div>
 </body>
 <footer>
-Designer: SNIZER | Coder: The-Guardians
+Designer: SNIZER | Coder: The-Guardians & Infinity
 </footer>
 </html>

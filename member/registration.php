@@ -21,40 +21,40 @@
     
     <div>
 
-        <label for="username">Username : </label>
+        <label for="username"> Nickname: </label>
         <input type="text" name="username" required>
 
     </div>
     
     <div>
 
-        <label for ="email">Email : </label>
+        <label for ="email"> E-mail: </label>
         <input type="email" name="email" required>
 
     </div>
 
     <div>
 
-        <label for ="password">Password : </label>
+        <label for ="password"> Password: </label>
         <input type="password" name="password_1" required>
 
     </div>
 
     <div>
 
-        <label for="password">Confirm Password : </label>
+        <label for="password"> Password confirm: </label>
         <input type="password" name="password_2" required>
 
     </div>
 
-    <button type="submit" name="reg_user"> Submit </button>
+    <button type="submit" name="reg_user"> Play </button>
 
-    <p>Already a user?<a href="login.php"><b>Log In</b></a></p>
+    <p>Already a user?<a href="login.php"><b>Login here</b></a></p>
 
 </form>
 </div>
 </body>
 <footer>
-Designer: SNIZER | Coder: The-Guardians
+Designer: SNIZER | Coder: The-Guardians & Infinity
 </footer>
 </html>

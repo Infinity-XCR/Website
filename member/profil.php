@@ -2,7 +2,7 @@
 <!DOCTYPE html_entity_decode>
 <html>
 <head>
-  <title>Nexus Project</title>
+  <title>Project N.E.X.U.S</title>
   <img src="">
   <link rel="stylesheet" type="text/css" href="/style.css">
   <meta charset="utf-8">
@@ -40,7 +40,7 @@ if(isset($_SESSION['username'])) : ?>
       </div>
 <div class="footer">
 <footer>
-Designer: SNIZER | Coder: The-Guardians
+Designer: SNIZER | Coder: The-Guardians & Infinity
 </footer>
 </div>
 </body>
