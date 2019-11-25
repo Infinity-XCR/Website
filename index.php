@@ -1,52 +1,70 @@
 <?php
-require_once('member/config.php');
-?>
-<?php
-if(isset($_SESSION['username'])) {
-   $_SESSION['msg'] = "You must log in to view this page";
-   header("location: ");
-}
-if (isset($_GET['logout'])){
-   session_destroy();
-   unset($_SESSION['username']);
-   header("location: login.php");
-}
-?>
-<?php $css=rand(100000000000,999999999999); ?>
-<!DOCTYPE html_entity_decode>
-<html>
-<head>
-  <title>Project N.E.X.U.S</title>
-  <link rel="stylesheet" type="text/css" href="style.css?__cv=<?php echo $css; ?>">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+/* @var $this yii\web\View */
+/* @var $model app\models\LoginForm */
 
-</head>
-<body>
-<div class="log-button">
-<a href="member/login.php">Login Here</a>
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
+$options = ["template"=>'{input}{error}'];
+?>
+<?php $form = ActiveForm::begin(); ?>
+<div class="col-md-12">
+	<div class="col-md-4">
+	<?php require("300x250.php"); ?>
+	</div>
+	<div class="col-md-4">
+	  <div class="panel panel-primary">
+		<div class="panel-heading">
+			<h1 class="panel-title">Log-in</h1>
+		</div>
+		<div style="padding: 30px;">
+			<?php if(isset($_GET['error'], $_GET['message'])): ?>
+			<br>
+			<div class="alert alert-danger"><?= $_GET['message']; ?></div>
+			<?php endif; ?>
+			<br>
+			<?= $form->field($model, 'username',$options)
+			  ->input("text", ["placeholder"=>"Username or E-mail"]); ?>
+			<?= $form->field($model, 'password',$options)
+			  ->passwordInput(["placeholder"=>"************"]); ?>
+
+			<?= Html::submitButton("LOGIN", ["class" => "btn btn-danger"]) ?>
+
+			<button type="button" class="btn btn-warning" onclick="location.href='/session/register<?= isset($_GET['referedBy']) ? '?referedBy='.$_GET['referedBy'] : '' ?>'" style="cursor: pointer;">
+				REGISTER
+			</button>
+			<br><br>
+			<button type="button" class="btn btn-success" onclick="jQuery('#sBtns').slideToggle()" style="cursor: pointer;">
+				Read before registering
+			</button>
+			<div id="sBtns" style="display: none; ">
+			<br><br>
+				<button type="button" class="btn btn-primary" onclick="sendA('en')" style="cursor: pointer;">
+					English
+				</button>
+			</div>
+			<br><br>
+		</div>
+		
+		<div class="login-help">
+			<a href="/session/recover">You can't login?</a>
+		</div>
+	  </div>
+	</div>
+	<div class="col-md-4">
+	<?php require("300x250.php"); ?>
+	</div>
 </div>
-<div class="reg-button">
-<a href="member/registration.php">Create Account</a>
-</div>
-<style>
-.footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height:5%;
-  background-color: transparent;
- text-align: center;
- color:red;
- }
-p,h2{
-color:red;
+<?php ActiveForm::end(); ?>
+<script>
+function sendA(l){
+	if (l == "es") {
+		alert("Dear user...\n\Welcome on N.E.X.U.S private server.\n\nWe want to announce you, that we are in developement state, anyway we preparing a lot of changes in our server for have a best game and more players...");
+	}
 }
-</style>
-<div class="footer">
-<footer>
-<b>Designer: SNIZER | Coder: The-Guardians & Infinity</b>
-</footer>
-</div>
-</body>
-</html>
+    <?php if(isset($_GET['request']) && $_GET['request'] == 'login'):?>
+        alert('Success, now you can login<br>');
+    <?php elseif(isset($_GET['request']) && $_GET['request'] == 'enableAccount'):?>
+        alert("Success, we send you an email, please click on LINK for activate your account<br>");
+    <?php endif; ?>
+</script>
