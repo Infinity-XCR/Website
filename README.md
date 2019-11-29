@@ -1,7 +1,9 @@
 # Qui a fait le projet:
 Moi-même ( The-Guardians ou Cyber).
 je suis connu sur ces deux noms.
-
+# Est ce que le projet as d'autre développeur ?
+Oui, Depuis peu il y a Infinity.
+Il a déjà effectué plus de tâche que le dernier Codeur.
 
 # Qu'est-ce que c'est?
 Un projet passe-temps qui veux devenir plus authentique,
