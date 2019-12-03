@@ -1,195 +1,78 @@
 <?php
-error_reporting(E_ALL);
-ini_set("log_errors", 1);
-ini_set("error_log", "php-error.txt");
-require 'libs/IXR_Library.php';
-require '../KERNEL-DOCMS/Class.db.php';
-class api extends IXR_Server{ 
-    
-    private $con;
-	
-    function __construct() {
-        $this->con = DB::getInstance();
-        $this->IXR_Server(array(
-            'api.oce' => 'this:orderComplete'
-        ));
-        
-    }
-    
-    function orderComplete($args){      
-        if($args[0]=="cryptKeyingc25vd3lhZG1pbg0K"){
-                self::gDI($args);
-        }else{
-           return FALSE;
-        }
-    }  
-	
-    function setId($uid, $pid) {
-        if ($this->copyright != "By Infinity") {
-            die("Do not violate my copyright");
-        }
-        $this->uid = $uid;
-        $this->pid = $pid;
-    }
-    
-    function everisign($id){
-        $stmt = $this->con->prepare("SELECT verified FROM users WHERE ID=:ID");
-        $stmt->bindParam(':ID', $id, PDO::PARAM_INT);
-        if ($stmt->execute()) {
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return $result[0]['ID'];
-        }
-    }
-    
-    function getUserIdFromPid($pid) {
-        $stmt = $this->con->prepare("SELECT userID FROM server_1_players WHERE playerID=:playerID");
-        $stmt->bindParam(':playerID', $pid, PDO::PARAM_INT);
-        if ($stmt->execute()) {
-            $result = $stmt->fetchAll(PDO::FETCH_OBJ);
-            return $result[0]->userID;
-        }
-    }
+require '/KERNEL-DOCMS/Init.php';
 
-    /* cPT : calculate Premium Time
-     * Simple calculation made on the 2 timestamps
-     * current time, and the players premium expire date.
-     * Everything is database controlled and use the
-     * SSL panel found on secure.darkplanets.net admin system,
-     * to edit any users premium.
-     */
+if(isset($_POST['loginForm_default_username'], $_POST['loginForm_default_password'], $_POST['loginForm_default_login_submit']) && $_POST['loginForm_default_login_submit'] === 'Login'):
+	$errorData = "";
+	if(strlen($_POST['loginForm_default_password']) < 6 || strlen($_POST['loginForm_default_password']) > 20 || !preg_match('`[0-9]`', $_POST['loginForm_default_password']) || $_POST['loginForm_default_password'] === '******' || strlen($_POST['loginForm_default_username']) < 3 || strlen($_POST['loginForm_default_username']) > 20):
+		$errorData .= '<p class="singup_errorMessage signup_errorMessage">This account does not exist.<br>Please check your info and try again.</p>';
+	else:
+		$query = $MySQLi->query('SELECT ID, Email FROM users WHERE Name = \'' .$_POST['loginForm_default_username'] . '\' AND pwHash = \'' . md5($_POST['loginForm_default_password']) . '\' LIMIT 1');
+		if($query->num_rows === 1):
+			$row = $query->fetch_assoc();
+			$sessionId = $Core::GenerateRandom(18, true, false);
+			$MySQLi->query('UPDATE users SET sessionId = \' ' . $sessionId . '\' WHERE ID = ' . $row['ID'] . '');
+			$_SESSION['server1']['user']['sessionId'] = $sessionId;
+			$_SESSION['server1']['user']['email'] = $row['Email'];
+			header('Location: /indexInternal.es?action=internalStart');
+		else:
+			$errorData .= '<p class="singup_errorMessage signup_errorMessage">This account does not exist.<br>Please check your info and try again.</p>';
+		endif;
+	endif;
+elseif(isset($_POST['signup_winnings'], $_POST['signup_username'], $_POST['signup_submit'], $_POST['signup_province'], $_POST['signup_passwordRepeat'], $_POST['signup_password'], $_POST['signup_newsletter'], $_POST['signup_instance'], $_POST['signup_email'], $_POST['signup_country'], $_POST['signup_birthdayYear'], $_POST['signup_birthdayMonth'], $_POST['signup_birthdayDay'])):
+	if($_POST['signup_submit'] == 'Register'):
+		$errorData = "";
+		if(strlen($_POST['signup_password']) < 6):
+			$errorData .= '<p class="singup_errorMessage signup_errorMessage">The password is too short. Please choose a new password which has between 4 and 20 characters.</p>';
+		elseif(strlen($_POST['signup_password']) > 20):
+			$errorData .= '<p class="singup_errorMessage signup_errorMessage">The password is too long. Please choose a new password which has between 4 and 20 characters.</p>';
+		elseif(!preg_match('`[0-9]`', $_POST['signup_password'])):
+			$errorData .= '<p class="singup_errorMessage signup_errorMessage">The password must include numbers.</p>';
+		endif;
+		
+		if(strlen($_POST['signup_username']) < 3):
+			$errorData .= '<p class="singup_errorMessage signup_errorMessage">This username is too short. Please choose a new username which has between 3 and 20 characters.</p>';
+		elseif(strlen($_POST['signup_username']) > 20):
+			$errorData .= '<p class="singup_errorMessage signup_errorMessage">This username is too long. Please choose a new username which has between 3 and 20 characters.</p>';
+		endif;
+		
+		if(empty($_POST['signup_email']) || strlen($_POST['signup_email']) > 50 || preg_match("/^[a-z0-9_\.-]+@([a-z0-9]+([\-]+[a-z0-9]+)*\.)+[a-z]{2,7}$/i", $_POST['signup_email']) !== 1):
+			$errorData .= '<p class="singup_errorMessage signup_errorMessage">Your e-mail address doesn\'t seem to be correct. Please enter a valid e-mail address.</p>';
+		endif;
+		
+		if(!isset($_POST['signup_termsAndCondition']) || $_POST['signup_termsAndCondition'] !== '1'):
+			$errorData .= '<p class="singup_errorMessage signup_errorMessage">Please confirm that you have accepted our Terms & Conditions. Afterwards, you may continue with your registration.</p>';
+		endif;
+		
+		if($errorData === ''):
+			if($MySQLi->query('SELECT null FROM users WHERE Name = \'' .$_POST['signup_username'] . '\'')->num_rows > 0):
+				$errorData .= '<p class="singup_errorMessage signup_errorMessage">This username already exists. Please select another username.</p>';
+			else:
+				$sessionId = $Core::GenerateRandom(18, true, false);
+				if($MySQLi->query('INSERT INTO users (Email, Name, pwHash, Servers, sessionId) VALUES (\'' . $_POST['signup_email'] . '\', \'' . $_POST['signup_username'] . '\', \'' . md5($_POST['signup_password']) . '\', \'\', ' . $sessionId . ');')):
+					$userId = $MySQLi->insert_id;
+					$MySQLi->multi_query('INSERT INTO server_1_players (userId, settings) VALUES (' . $userId . ', \'\');UPDATE users SET Servers = \'[{1:' . $MySQLi->insert_id . '}]\' WHERE ID = \'' . $userId . '\'');
+					
+					$_SESSION['server1']['user']['sessionId'] = $sessionId;
+					$_SESSION['server1']['user']['email'] = $_POST['signup_email'];
+					header('Location: /indexInternal.es?action=internalCompanyChoose');
+				endif;
+			endif;
+		endif;
+	endif;
+endif;
 
-    function cPT($timestamp) {
-        if (time() < strtotime($timestamp)) {
-            return TRUE; // Still premium
-        } else {
-            return FALSE; // Not premium
-        }
-    }
+require GLOBALS . 'doc.php';
+require GLOBALS . 'header.php';
+require FILES . 'INDEX/header.php';
+require GLOBALS . 'sajax.php';
+require GLOBALS . 'xajax.php';
+require GLOBALS . 'headerEndJS.php';
+require FILES . 'INDEX/jsSubmit.php';
+echo '</head>';
+require FILES . 'INDEX/bodyHeader.php';
+require 'body.php';
+require FILES . 'INDEX/bodyFooter.php';
 
-    /* aPT : apply Premium Time 
-     * $period is the days you want to add to the user
-     * please take note if the user is already premium
-     * the day time you apply the premium exstention, 
-     * will it prolong it with the current time.
-     * And not override the current time.   
-     * This function must be private.
-     */
 
-    function aPT($pid, $period) {
-        $stmt = $this->con->prepare("SELECT premium FROM server_1_players WHERE playerID=:playerID");
-        $stmt->bindParam(':playerID', $pid, PDO::PARAM_INT);
-        if ($stmt->execute()) {
-            $result = $stmt->fetchAll(PDO::FETCH_OBJ);
-            $pTime = $result[0]->premium; // What exists in the db of time
-            $cTime = time(); // The time this function is made.     
-            if ($cTime < strtotime($pTime)) {
-                $c = strtotime(date("Y-m-d H:i:s", strtotime($pTime)) . " +$period day");
-                $da = date('Y-m-d H:i:s', $c);
-                return self::sPT($pid, $da);
-            } else {
-                $c = strtotime(date(strtotime($cTime)) . " +$period day");
-                $da = date('Y-m-d H:i:s', $c);
-                return self::sPT($pid, $da);
-            }
-        }
-    }
-
-    /* sPT : set Premium Time
-     * This function will just update the premium that you give.
-     * Please note that this will give you access to REVOKE premium time to.
-     */
-
-    function sPT($pid, $times) {
-        $sql = "UPDATE server_1_players SET premium = :premium WHERE playerID=:playerID";
-        $stm = $this->con->prepare($sql);
-        $stm->bindParam(':premium', $times, PDO::PARAM_STR);
-        $stm->bindParam(':playerID', $pid, PDO::PARAM_INT);
-        if ($stm->execute()) {
-            return TRUE;
-        } else {
-            return FALSE;
-        }
-    }
-
-    /* gDI: give Donation Items
-     * The xml api is submitting the json and the player ID.
-     * Once the payment is confirmed. 
-     */
-      function gDI($args) {
-	  $mhh = false;
-        if ($args[0] != "cryptKeyingc25vd3lhZG1pbg0K") {
-            return FALSE;
-        } else {
-            $stdJson = json_decode(base64_decode($args[1]));
-			
-            if ($stdJson->error == 0) {
-                if ($stdJson->package == "premium") {
-				$loglist = "9|".$stdJson->playerID."|". $stdJson->price ."|0|". $stdJson->currency ."|".$stdJson->gross;
-				DB::pmc($stdJson->playerID, $loglist, "donations");				
-                    if (self::aPT($stdJson->playerID, $stdJson->period)) {
-                        $log = "You bought " . $stdJson->period . " days of " . $stdJson->package;
-                        DB::setLog($stdJson->playerID, $log);
-                    } else {
-                        $log = "Something went wrong with your purchase of " . $stdJson->period . " days of " . $stdJson->package . ", please contact support!";						
-                        DB::setLog($stdJson->playerID, $log);
-                    }
-                } elseif ($stdJson->package == "uridium") {
-				if($mhh===TRUE){
-				$atype = $stdJson->a *3;
-				}else{
-				$atype = $stdJson->a;
-				}
-				$loglist = "10|".$stdJson->playerID."|". $stdJson->price ."|". $atype ."|0|". $stdJson->currency ."|".$stdJson->gross;
-				DB::pmc($stdJson->playerID, $loglist, "donations");
-                    $sql = "UPDATE server_1_players SET uri = uri + $atype WHERE playerID=:playerID";
-                    $stm = $this->con->prepare($sql);
-                    $stm->bindParam(':playerID', $stdJson->playerID, PDO::PARAM_INT);
-                    if ($stm->execute()) {
-                        $log = "You bought " . number_format($atype) . " units of " . $stdJson->package;
-                        DB::setLog($stdJson->playerID, $log);
-                    } else {
-                        $log = "Something went wrong with your purchase of " . number_format($stdJson->period) . $stdJson->package . ", please contact support!";
-                        DB::setLog($stdJson->playerID, $log);
-                    }
-                } elseif ($stdJson->package == "kit") {
-                    $log = "Please contact support about you game Kit!";
-                    DB::setLog($stdJson->playerID, $log);
-                } else {
-                    return false;
-                }
-            } else {
-			if ($stdJson->package == "premium") {
-				$loglist = "9|".$stdJson->playerID."|". $stdJson->price ."|1|". $stdJson->currency ."|".$stdJson->gross;
-			} elseif ($stdJson->package == "uridium") {
-				$loglist = "10|".$stdJson->playerID."|". $stdJson->price ."|". $stdJson->package ."|1|". $stdJson->currency ."|".$stdJson->gross;
-			}else{
-				
-			}
-				DB::pmc($stdJson->playerID, $loglist, "donations");
-				return false;
-            }
-        }
-    }
-
-    function giveVeriUri($id){
-         $sql = "UPDATE server_1_players SET uri = uri + 2000 WHERE playerID=:playerID";
-            $stm = $this->con->prepare($sql);
-            $stm->bindParam(':playerID', $id, PDO::PARAM_INT);
-            if ($stm->execute()) {
-
-            }
-    }
-    
-    function getPlayerid($id){
-        $sqli = "SELECT playerID FROM server_1_players WHERE userID = :userID";
-        $stmt = $this->con->prepare($sqli);
-        $stmt->bindParam("userID", $id, PDO::PARAM_INT);
-        if ($stmt->execute()) {
-            $result = $stmt->fetchAll(PDO::FETCH_OBJ);
-            return $result[0]->playerID;
-        }
-    }	
-  
-}
-$s = new api();
+echo "<script languaje='javascript'>alert('Created by Infinity & The-Guardians ;) ');</script>";
 ?>
