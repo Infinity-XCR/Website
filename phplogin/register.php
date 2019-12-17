@@ -8,7 +8,7 @@ $DATABASE_NAME = 'nexusproject';
 $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
 if (mysqli_connect_errno()) {
 	// If there is an error with the connection, stop the script and display the error.
-	die ('Failed to connect to MySQL: ' . mysqli_connect_error());
+	die ('Failed to connect to MySQL : ' . mysqli_connect_error());
 }
 // Now we check if the data was submitted, isset() function will check if the data exists.
 if (!isset($_POST['username'], $_POST['password'], $_POST['email'])) {
@@ -30,7 +30,7 @@ if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 	die ('Email is not valid!');
 }
 // We need to check if the account with that username exists.
-if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?')) {
+if ($stmt = $con->prepare('SELECT ID, password FROM accounts WHERE username = ?')) {
 	// Bind parameters (s = string, i = int, b = blob, etc), hash the password using the PHP password_hash function.
 	$stmt->bind_param('s', $_POST['username']);
 	$stmt->execute();
@@ -59,9 +59,10 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
 	echo 'Could not prepare statement!';
 	}
 	$stmt->close();
-} else {
+} //else {
 	// Something is wrong with the sql statement, check to make sure accounts table exists with all 3 fields.
 	echo 'Could not prepare statement!';
 }
 $con->close();
+
 ?>
