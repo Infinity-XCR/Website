@@ -17,7 +17,7 @@ if ( !isset($_POST['username'], $_POST['password']) ) {
 	die ('Please fill both the username and password field!');
 }
 // Prepare our SQL, preparing the SQL statement will prevent SQL injection.
-if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?')) {
+if ($stmt = $con->prepare('SELECT ID, password FROM accounts WHERE username = ?')) {
 	// Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
 	$stmt->bind_param('s', $_POST['username']);
 	$stmt->execute();
@@ -35,7 +35,7 @@ if ($stmt->num_rows > 0) {
 		session_regenerate_id();
 		$_SESSION['loggedin'] = TRUE;
 		$_SESSION['name'] = $_POST['username'];
-		$_SESSION['id'] = $id;
+		$_SESSION['ID'] = $id;
 		echo 'Welcome ' . $_SESSION['name'] . '!';
 	} else {
 		echo 'Incorrect password!';
@@ -45,3 +45,15 @@ if ($stmt->num_rows > 0) {
 }
 $stmt->close();
 ?>
+<!DOCTYPE html>
+<html>
+<header>
+<title>Authenticate page</title>
+</header>
+<body>
+<a href="profile.php">Your Profile</a><br><br>
+<a href="logout.php">Disconnection</a>
+<footer>
+
+</footer>
+</html>
