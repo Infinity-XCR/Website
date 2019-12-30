@@ -1,20 +1,19 @@
-# Qui a fait le projet:
-Moi-même ( The-Guardians ou Cyber).
-je suis connu sur ces deux noms.
-# Est ce que le projet a d'autre développeur ?
-Oui, Depuis peu il y a Infinity.
-Il a déjà effectué plus de tâche que le dernier Codeur.
+# Who did the project:
+Me (Cyber or The-Guardians)
+You only find me under these two nicknames.
+# Does project have any other developers?
+Yes, currently we have very skilled coder called Infinity.
+He did many more than former coder.
 
-# Qu'est-ce que c'est?
-Un projet passe-temps qui veux devenir plus authentique,
-et qui m'a été inspiré par le développeur de SpaceConflict.
-un jeu 2d - 3D  spatial ou tu peux combattre , farmez tes ressources pour gagnez ton équipement , faire des multivers pour gagner des récompenses.
+# What Project N.E.X.U.S means?
+It is a hobby project that wants to become more authentic, and which was inspired by the developer of SpaceConflict. An 2D-3D space game where you can fight, stuff your resources to win your equipment, make multiverses to win rewards
 
-# As-tu de l'aide pour le projet?
-oui
+# Does the project have any help?
+For sure.
 
-# Quand as tu eu l'idée de faire ce projet?
-il y a 2 ans  je pense.
+# When did you get idea to do this project?
+2 years ago i think.
 
-# fichier à finir
-Date de dernière mises à jours: 29-11-2019.
+# Changelog
+v0.3 - Core updated, more improvements soon!
+# Last update: 30-12-2019
