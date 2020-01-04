@@ -75,5 +75,10 @@ $con->close();
 <a href="profile.php">Your Profile</a>
 
 
-
+</body>
+<footer>
+<?php
+include('footer.php');
+?>
+</footer>
 </html>
