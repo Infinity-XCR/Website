@@ -15,4 +15,4 @@ For sure.
 
 # Changelog
 v0.3 - Core updated, more improvements soon!
-# Last update: 30-12-2019
+# Last update: 03-02-2020
