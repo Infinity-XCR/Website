@@ -2,8 +2,7 @@
 Me (Cyber or The-Guardians)
 You only find me under these two nicknames.
 # Does project have any other developers?
-Yes, currently we have very skilled coder called Infinity.
-He did many more than former coder.
+Currently no.
 
 # What Project N.E.X.U.S means?
 It is a hobby project that wants to become more authentic, and which was inspired by the developer of SpaceConflict. An 2D-3D space game where you can fight, stuff your resources to win your equipment, make multiverses to win rewards
